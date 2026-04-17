@@ -1,0 +1,13 @@
+### POST request to create patient
+POST http://localhost:8080/patients
+Content-Type: application/json
+
+{
+  "name":"Rohith",
+  "email": "rohith@gmail.com",
+  "address" : "123 main street",
+  "dateOfBirth": "2004-06-27",
+  "registeredDate": "2026-04-21"
+}
+
+###
