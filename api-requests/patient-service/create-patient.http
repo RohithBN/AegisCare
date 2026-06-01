@@ -3,8 +3,8 @@ POST http://localhost:8080/patients
 Content-Type: application/json
 
 {
-  "name":"Rohith kafka consumer",
-  "email": "rohith12consumer@gmail.com",
+  "name":"Rohith notification",
+  "email": "rohithvideos12@gmail.com",
   "address" : "123 main street",
   "dateOfBirth": "2004-06-27",
   "registeredDate": "2026-04-21"

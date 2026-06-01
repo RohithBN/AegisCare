@@ -12,6 +12,7 @@ import com.pm.patientservice.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -65,5 +66,33 @@ public class PatientService {
     public void deletePatient(UUID id){
         Patient patient= patientRepository.findById(id).orElseThrow(()->new PatientNotFoundException("Patient not found with Id: "+id));
         patientRepository.deleteById(id);
+    }
+
+    // ensureExists: return the patient or throw
+    public Patient ensureExists(UUID patientId) {
+        return patientRepository.findById(patientId)
+                .orElseThrow(() -> new PatientNotFoundException("Patient not found with Id: " + patientId));
+    }
+
+    // markPendingIdProof: store pending id proof key and content type
+    public void markPendingIdProof(UUID patientId, String key, String contentType) {
+        Patient patient = ensureExists(patientId);
+        patient.setIdProofKey(key);
+        patient.setIdProofContentType(contentType);
+        patient.setIdProofUploadedAt(null);
+        patient.setIdProofStatus("PENDING");
+        patientRepository.save(patient);
+    }
+
+    // confirmIdProofUploaded: verify the key matches and store uploaded timestamp/status
+    public void confirmIdProofUploaded(UUID patientId, String key) {
+        Patient patient = ensureExists(patientId);
+        String currentKey = patient.getIdProofKey();
+        if (currentKey == null || !currentKey.equals(key)) {
+            throw new IllegalArgumentException("Provided key does not match pending id-proof key for patient " + patientId);
+        }
+        patient.setIdProofUploadedAt(Instant.now());
+        patient.setIdProofStatus("VERIFIED");
+        patientRepository.save(patient);
     }
 }

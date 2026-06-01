@@ -21,7 +21,7 @@ public class NotificationServiceImpl implements NotificationService {
         log.info("Handling Kafka Event: {}", event);
 
         switch (event.getEventType()){
-            case "PATIET_CREATED" -> {
+            case "PATIENT CREATED" -> {
                 EmailDetails emailDetails = EmailDetails.builder()
                         .recipient(event.getEmail())
                         .subject("Welcome to our healthcare system")

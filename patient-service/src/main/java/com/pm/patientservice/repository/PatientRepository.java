@@ -11,5 +11,6 @@ public interface PatientRepository extends JpaRepository<Patient,UUID> {
 
     boolean existsByEmail(String email);
 
+    // keep repository simple; higher-level id-proof operations are handled in the service layer
     boolean existsByEmailAndIdNot(String email , UUID id);
 }

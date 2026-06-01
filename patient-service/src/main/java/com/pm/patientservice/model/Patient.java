@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -15,6 +17,56 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    // S3 object key for ID proof (nullable until uploaded)
+    private String idProofKey;
+
+    public String getIdProofBucket() {
+        return idProofBucket;
+    }
+
+    public void setIdProofBucket(String idProofBucket) {
+        this.idProofBucket = idProofBucket;
+    }
+
+    public String getIdProofKey() {
+        return idProofKey;
+    }
+
+    public void setIdProofKey(String idProofKey) {
+        this.idProofKey = idProofKey;
+    }
+
+    public Instant getIdProofUploadedAt() {
+        return idProofUploadedAt;
+    }
+
+    public void setIdProofUploadedAt(Instant idProofUploadedAt) {
+        this.idProofUploadedAt = idProofUploadedAt;
+    }
+
+    public String getIdProofContentType() {
+        return idProofContentType;
+    }
+
+    public void setIdProofContentType(String idProofContentType) {
+        this.idProofContentType = idProofContentType;
+    }
+
+    public String getIdProofStatus() {
+        return idProofStatus;
+    }
+
+    public void setIdProofStatus(String idProofStatus) {
+        this.idProofStatus = idProofStatus;
+    }
+
+    // optional S3 bucket and metadata for ID proof
+    private String idProofBucket;
+    private Instant idProofUploadedAt;
+    private String idProofContentType;
+    // status: NONE / PENDING / VERIFIED
+    private String idProofStatus;
 
     @NotNull
     private String name;

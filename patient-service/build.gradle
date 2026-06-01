@@ -47,6 +47,12 @@ dependencies {
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
     implementation "com.google.protobuf:protobuf-java:${protobufVersion}"
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
+    implementation 'software.amazon.awssdk:s3:2.20.0'       // adjust version to current
+    implementation 'software.amazon.awssdk:auth:2.20.0'
 }
 
 protobuf {
